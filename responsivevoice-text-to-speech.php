@@ -33,13 +33,18 @@ function RV_add_listen_button($attributes)
     $id_listenButton++;
 
     $postContent = get_the_content();
-    $postContent = RV_clean_text($postContent);
     extract(shortcode_atts(array(
         'voice'      => 'UK English Female',
-        'buttontext' => 'Listen to this'
+        'buttontext' => 'Listen to this',
+		'read_tite'  => false
     ), $attributes));
 
     $parameters = RV_extract_extra_parameters($attributes);
+	
+	if($read_tite){
+		$postContent = get_the_title() . ". " . $postContent;
+	}
+	$postContent = RV_clean_text($postContent);
 
     $speakerIcon = "&#128266;";
     // The script can be multiline, but the button should be in a single line, otherwise it can mess up a user's layout.
